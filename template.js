@@ -1,7 +1,11 @@
 console.log("template.js wurde geladen");
+
 function generate() {
   let pptx = new PptxGenJS();
 
+  // ------------------------------------------------------------
+  // GLOBAL DESIGN
+  // ------------------------------------------------------------
   pptx.layout = "LAYOUT_16x9";
 
   const COLOR_TEXT = "222222";
@@ -10,10 +14,13 @@ function generate() {
   const COLOR_LINE = "DDDDDD";
   const FONT_MAIN  = "Arial";
 
+  // ------------------------------------------------------------
+  // NOTEBOOK LINES (korrigiert für PptxGenJS v3.x)
+  // ------------------------------------------------------------
   function addNotebookLines(slide) {
     const lineCount = 14;
     for (let i = 0; i < lineCount; i++) {
-      slide.addShape(pptx.ShapeType.LINE, {
+      slide.addShape(pptx.shapes.LINE, {
         x: 0.5,
         y: 0.8 + i * 0.4,
         w: 9,
@@ -23,11 +30,16 @@ function generate() {
     }
   }
 
+  // ------------------------------------------------------------
+  // GRID 4×5 (20 Items) – korrigiert für PptxGenJS v3.x
+  // ------------------------------------------------------------
   function addGridItems(slide) {
     const cols = 4;
     const rows = 5;
+
     const startX = 0.6;
     const startY = 1.2;
+
     const cellW = 2.2;
     const cellH = 1.4;
 
@@ -38,7 +50,8 @@ function generate() {
         const x = startX + c * cellW;
         const y = startY + r * cellH;
 
-        slide.addShape(pptx.ShapeType.ELLIPSE, {
+        // Icon-Kreis
+        slide.addShape(pptx.shapes.ELLIPSE, {
           x: x,
           y: y,
           w: 0.45,
@@ -47,6 +60,7 @@ function generate() {
           fill: { color: "FFFFFF" }
         });
 
+        // Titel
         slide.addText(`Item ${index}`, {
           x: x + 0.55,
           y: y,
@@ -58,6 +72,7 @@ function generate() {
           color: COLOR_TEXT
         });
 
+        // Beschreibung
         slide.addText("1–2 Zeilen Beschreibung", {
           x: x + 0.55,
           y: y + 0.42,
@@ -73,11 +88,15 @@ function generate() {
     }
   }
 
+  // ------------------------------------------------------------
+  // SLIDE
+  // ------------------------------------------------------------
   let slide = pptx.addSlide();
   slide.background = { color: "FFFFFF" };
 
   addNotebookLines(slide);
 
+  // Titel
   slide.addText("20 Lektionen aus 4 Jahren KI-Powernutzung", {
     x: 0.6,
     y: 0.3,
@@ -89,6 +108,7 @@ function generate() {
     color: COLOR_TEXT
   });
 
+  // Untertitel
   slide.addText("Minimalist Flat Infographic – Notebook Style", {
     x: 0.6,
     y: 0.75,
@@ -101,6 +121,7 @@ function generate() {
 
   addGridItems(slide);
 
+  // Footer-Frage
   slide.addText("Was war DEINE größte Lektion?", {
     x: 0.6,
     y: 8.0,
@@ -112,6 +133,8 @@ function generate() {
     color: COLOR_RED
   });
 
-  pptx.writeFile({ fileName: "Minimalist_Flat_Infographic_Template.pptx" });
+  // ------------------------------------------------------------
+  // EXPORT
+  // ------------------------------------------------------------
+  pptx.writeFile("Minimalist_Flat_Infographic_Template.pptx");
 }
-
