@@ -4,12 +4,6 @@
   <meta charset="UTF-8" />
   <title>PptxGenJS – Minimalist Template</title>
 
-  <!-- PptxGenJS aus CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
-
-  <!-- Dein Template-Code -->
-  <script src="template.js"></script>
-
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -32,5 +26,9 @@
   <p>Klicke auf den Button, um die PPTX zu erzeugen.</p>
 
   <button onclick="generate()">PPTX erzeugen</button>
+
+  <!-- Scripts müssen *nach* dem Body kommen -->
+  <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+  <script src="template.js"></script>
 </body>
 </html>
