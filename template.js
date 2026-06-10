@@ -1,3 +1,4 @@
+console.log("template.js wurde geladen");
 function generate() {
   let pptx = new PptxGenJS();
 
